@@ -30,7 +30,7 @@ def signin():
         return redirect("/member")
     #帳號密碼未輸入
     elif (account=="" or password=="") and  session["key"]!="pass":
-        return render_template("errorW04.html",content="請輸入帳號密碼")
+        return render_template("errorW04.html",content="請輸入帳號、密碼")
     else:
         session["key"]="close"
         return redirect("/error")
