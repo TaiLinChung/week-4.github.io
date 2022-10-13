@@ -28,14 +28,24 @@ def signin():
     if (account=="test" and password=="test") or  session["key"]=="pass":
         session["key"]="pass"
         return redirect("/member")
-    #帳號密碼未輸入
     elif (account=="" or password=="") and  session["key"]!="pass":
-        return render_template("errorW04.html",content="請輸入帳號、密碼")
+        session["errormessage"]="請輸入帳號、密碼"
+        return redirect("/connect")
     else:
         session["key"]="close"
-        return redirect("/error")
+        session["errormessage"]="帳號、或密碼錯誤"
+        return redirect("/connect")
 
 
+##想法 做一個跳板丟訊息給/error，/error?message=errormessage
+@app.route("/connect")
+def connect():
+    errormessage=session["errormessage"]
+    # errormessage="6666666"
+    return redirect("http://127.0.0.1:3000/error?message="+errormessage)
+
+    
+    
 #想法，若未滿足 pass 則導回route("/")
 #使用POST方法，處理路徑/member 的對應函式
 @app.route("/member")
@@ -77,6 +87,22 @@ def square1():
 def square(num):
     # return num
     return render_template("caculateW04.html",content=str(num))
+
+
+# ##實作跳轉網址
+# @app.route("/connect")
+# def connect():
+#     return redirect("http://127.0.0.1:3000/getSum?message=帳號、密碼錯誤")
+
+
+# @app.route("/getSum")
+# def getSum():
+#     maxNum=request.args.get("message",100)
+#     # result=0
+#     # for i in range(1,101):
+#     #     result+=i
+#     return str(maxNum)
+
 
 
 #啟動網站伺服器，可透過port參數指定埠號
