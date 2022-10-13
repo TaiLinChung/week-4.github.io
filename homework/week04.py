@@ -64,7 +64,8 @@ def signout():
 def square1():
     number=request.args.get("number","")
     if number=="":
-        return redirect("/")
+        # return redirect("/")
+        return render_template("errorW04.html",content="請輸入要計算的數字")
     # number=int(number)
     # number=number*number
     # return render_template("caculate2W04.html",content=str(number))
